@@ -52,18 +52,18 @@ class AssetLocater
 		$baseTheme = $this->assetManager->getBaseTheme();
 		$theme = $this->assetManager->getTheme();
 
-		$folder = str_replace('@', '', array_shift($nameParts));
+		$path = str_replace('@', '', array_shift($nameParts));
 		$filename = implode('/', $nameParts);
 
 		// current theme
-		$file = $publishPath . '/' . $folder . '/' . $theme . '/' . $filename;
+		$file = $publishPath . '/' . $path . '/' . $theme . '/' . $filename;
 		if ($file = realpath($file)) {
 			return $file;
 		}
 
 		// fallback to base
 		if ($theme != $baseTheme) {
-			$file = $publishPath . '/' . $folder . '/' . $baseTheme . '/' . $filename;
+			$file = $publishPath . '/' . $path . '/' . $baseTheme . '/' . $filename;
 			if ($file = realpath($file)) {
 				return $file;
 			}

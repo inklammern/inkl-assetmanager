@@ -35,19 +35,19 @@ class AssetPublisher
 	private function copyFiles() {
 
 		$publishPath = $this->assetManager->getPublishPath();
-		$folders = $this->assetManager->getFolders();
-		foreach ($folders as $namespace => $folder) {
+		$paths = $this->assetManager->getPaths();
+		foreach ($paths as $namespace => $path) {
 
-			if (!$this->filesystem->exists($folders))
+			if (!$this->filesystem->exists($path))
 			{
 				continue;
 			}
 
-			$themeFolders = $this->getThemeFolders($folder);
+			$themeFolders = $this->getThemeFolders($path);
 
 			foreach ($themeFolders as $themeFolder) {
 
-				$from = $folder . '/' . $themeFolder . '/assets/';
+				$from = $path . '/' . $themeFolder . '/assets/';
 				$to = $publishPath . '/' . $namespace . '/' . $themeFolder . '/';
 
 				$this->filesystem->mirror($from, $to);
@@ -58,10 +58,10 @@ class AssetPublisher
 	}
 
 
-	private function getThemeFolders($folder) {
+	private function getThemeFolders($path) {
 
 		$themeFolders = [];
-		foreach (new \DirectoryIterator($folder) as $info)
+		foreach (new \DirectoryIterator($path) as $info)
 		{
 			if (!$info->isDot() && $info->isDir())
 			{

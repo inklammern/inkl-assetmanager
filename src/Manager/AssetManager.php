@@ -7,7 +7,7 @@ class AssetManager
 	const BASE_THEME = 'base';
 
 	/** @var array */
-	private $folders = [];
+	private $paths = [];
 
 	/** @var string */
 	private $publicPath;
@@ -32,7 +32,7 @@ class AssetManager
 	{
 		$this->publicPath = realpath($publicPath);
 		$this->publishFolder = $publishFolder;
-		$this->publishPath = realpath($publicPath . '/' . $publishFolder);
+		$this->publishPath = $publicPath . '/' . $publishFolder;
 		$this->theme = $theme;
 	}
 
@@ -62,13 +62,13 @@ class AssetManager
 	}
 
 
-	public function addFolder($namespace, $folder)
+	public function addPath($namespace, $path)
 	{
-		$this->folders[$namespace] = $folder;
+		$this->paths[$namespace] = $path;
 	}
 
-	public function getFolders() {
-		return $this->folders;
+	public function getPaths() {
+		return $this->paths;
 	}
 
 }
