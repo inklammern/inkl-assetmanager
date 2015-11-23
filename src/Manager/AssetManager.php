@@ -4,8 +4,6 @@ namespace Inkl\AssetManager\Manager;
 
 class AssetManager
 {
-	const BASE_THEME = 'base';
-
 	/** @var array */
 	private $paths = [];
 
@@ -19,21 +17,21 @@ class AssetManager
 	private $publishPath;
 
 	/** @var string */
-	private $theme;
+	private $themes = [];
 
 
 	/**
 	 * AssetManagerLoader constructor.
 	 * @param $publicPath
 	 * @param string $publishFolder
-	 * @param string $theme
+	 * @param array $themes
 	 */
-	public function __construct($publicPath, $publishFolder = 'assets', $theme = 'base')
+	public function __construct($publicPath, $publishFolder, array $themes)
 	{
 		$this->publicPath = realpath($publicPath);
 		$this->publishFolder = $publishFolder;
 		$this->publishPath = $publicPath . '/' . $publishFolder;
-		$this->theme = $theme;
+		$this->themes = $themes;
 	}
 
 
@@ -52,17 +50,12 @@ class AssetManager
 	}
 
 
-	public function getBaseTheme() {
-		return self::BASE_THEME;
+	public function getThemes() {
+		return $this->themes;
 	}
 
 
-	public function getTheme() {
-		return $this->theme;
-	}
-
-
-	public function addPath($namespace, $path)
+	public function addPath($path, $namespace)
 	{
 		$this->paths[$namespace] = $path;
 	}
