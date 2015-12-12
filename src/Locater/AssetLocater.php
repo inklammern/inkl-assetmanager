@@ -24,9 +24,11 @@ class AssetLocater
 	{
 		if ($file = $this->find($name)) {
 
+			$publicPath = str_replace('\\', '/', $this->assetManager->getPublicPath());
+			$file = str_replace('\\', '/', $file);
+
 			return strtr($file, [
-				$this->assetManager->getPublicPath() => '',
-				'\\' => '/'
+				$publicPath => '',
 			]);
 		}
 
@@ -55,7 +57,7 @@ class AssetLocater
 		foreach ($this->assetManager->getThemes() as $theme)
 		{
 			$file = $publishPath . '/' . $path . '/' . $theme . '/' . $filename;
-			if ($file = realpath($file)) {
+			if (file_exists($file)) {
 				return $file;
 			}
 		}

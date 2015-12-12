@@ -50,7 +50,7 @@ class AssetPublisher
 				$from = $path . '/' . $themeFolder . '/assets/';
 				$to = $publishPath . '/' . $namespace . '/' . $themeFolder . '/';
 
-				$this->filesystem->mirror($from, $to);
+				$this->filesystem->symlink($from, $to);
 			}
 
 		}
